@@ -52,7 +52,7 @@ class Func(Driver):
         Поиск в гугле
         """
         elem = self.driver.find_element(By.NAME, "q")
-        elem.send_keys("Калькулатор")
+        elem.send_keys("Калькулятор")
         elem.send_keys(Keys.RETURN)
 
     def input(self):
