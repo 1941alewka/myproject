@@ -3,7 +3,6 @@ from main import Func
 from locators import Locators
 class Test:
     def test1(self):
-        dr = Driver()
         func = Func()
         func.get_url(url="https://www.google.com")
         func.search()
