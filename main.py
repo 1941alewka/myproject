@@ -6,6 +6,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
+from locators import Locators
 
 
 class Driver:
@@ -41,6 +42,7 @@ class Driver:
 
     def down(self):
         self.driver.close()
+        self.driver.quit()
 
     def search(self):
         """
@@ -60,18 +62,16 @@ class Driver:
         elem.click()
         data = ['1', '×', '2', '−', '3','+', '1','=']
         for i in data:
-            xpath_num = f"//table//div[contains(@class, 'PaQdxb A2W7l')]/div[contains(text(),'{i}')]"
-            xpath_func = f"//table//div[contains(@class, 'PaQdxb mF5fo')]/div[contains(text(),'{i}')]"
             if i == '×':
-                elem = self.driver.find_element(By.XPATH, xpath_func)
+                elem = self.driver.find_element(By.XPATH, Locators.getLocatorfunc(i))
             elif i == '+':
-                elem = self.driver.find_element(By.XPATH, xpath_func)
+                elem = self.driver.find_element(By.XPATH, Locators.getLocatorfunc(i))
             elif i == '=':
-                elem = self.driver.find_element(By.XPATH, xpath_func)
+                elem = self.driver.find_element(By.XPATH, Locators.getLocatorfunc(i))
             elif i == '−':
-                elem = self.driver.find_element(By.XPATH, xpath_func)
+                elem = self.driver.find_element(By.XPATH, Locators.getLocatorfunc(i))
             else:
-                elem = self.driver.find_element(By.XPATH, xpath_num)
+                elem = self.driver.find_element(By.XPATH, Locators.getLocator(i))
 
             elem.click()
             if elem.is_displayed():
@@ -84,13 +84,12 @@ class Driver:
         """
         Проверяем, что результат верный + проверяем что отображается функция и результат
         """
-        xpath_res = "//div/span[contains(@class,'qv3Wpe')]"
-        xpath_up = "//div/span[contains(@class,'vUGUtc')]"
-        elem = self.driver.find_element(By.XPATH, xpath_res)
+
+        elem = self.driver.find_element(By.XPATH, Locators.LOCATOR_RESULT)
         assert elem.is_displayed(), 'Проверка, что результат виден'
         res = elem.text
         assert int(res) == 0, 'Проверка, что результат = 0 '
-        elem2 = self.driver.find_element(By.XPATH, xpath_up)
+        elem2 = self.driver.find_element(By.XPATH, Locators.LOCATOR_FUNC)
         assert elem2.is_displayed(),'Проверка, что наша функция отображается'
         func = elem2.text
         assert func == '1 × 2 - 3 + 1 =', f'Проверка, что данные функции совпадают'
