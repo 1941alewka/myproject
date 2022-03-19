@@ -15,6 +15,9 @@ class Driver:
         self.ser = Service("C:\\Users\\lexabicepz\\geckodriver.exe")
         self.driver = webdriver.Firefox(service=self.ser)
 
+
+class Func(Driver):
+
     def get_url(self, url):
         driver = self.driver
         driver.get(url)
@@ -60,7 +63,7 @@ class Driver:
         self.check_load_page(num=2, selector='cwos')
         elem = self.driver.find_element(By.ID, "cwos")
         elem.click()
-        data = ['1', '×', '2', '−', '3','+', '1','=']
+        data = ['1', '×', '2', '−', '3', '+', '1', '=']
         for i in data:
             if i == '×':
                 elem = self.driver.find_element(By.XPATH, Locators.getLocatorfunc(i))
@@ -90,15 +93,6 @@ class Driver:
         res = elem.text
         assert int(res) == 0, 'Проверка, что результат = 0 '
         elem2 = self.driver.find_element(By.XPATH, Locators.LOCATOR_FUNC)
-        assert elem2.is_displayed(),'Проверка, что наша функция отображается'
+        assert elem2.is_displayed(), 'Проверка, что наша функция отображается'
         func = elem2.text
         assert func == '1 × 2 - 3 + 1 =', f'Проверка, что данные функции совпадают'
-
-
-if __name__ == "__main__":
-    dr = Driver()
-    dr.get_url(url="https://www.google.com")
-    dr.search()
-    dr.input()
-    dr.check_result()
-    dr.down()
