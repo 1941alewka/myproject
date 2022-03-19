@@ -65,13 +65,7 @@ class Func(Driver):
         elem.click()
         data = ['1', '×', '2', '−', '3', '+', '1', '=']
         for i in data:
-            if i == '×':
-                elem = self.driver.find_element(By.XPATH, Locators.getLocatorfunc(i))
-            elif i == '+':
-                elem = self.driver.find_element(By.XPATH, Locators.getLocatorfunc(i))
-            elif i == '=':
-                elem = self.driver.find_element(By.XPATH, Locators.getLocatorfunc(i))
-            elif i == '−':
+            if i in ['×', '−', '+', '=']:
                 elem = self.driver.find_element(By.XPATH, Locators.getLocatorfunc(i))
             else:
                 elem = self.driver.find_element(By.XPATH, Locators.getLocator(i))
